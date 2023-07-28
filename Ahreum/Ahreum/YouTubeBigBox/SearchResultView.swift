@@ -11,6 +11,7 @@ struct SearchResultView: View {
     
     @StateObject private var network = RequestAPIYouTubeBigBox.shared
     @State var isShowDetailBoxView = false
+    @Binding var isSearched: Bool
     
     var body: some View {
         ScrollView(showsIndicators: false) {
@@ -22,13 +23,13 @@ struct SearchResultView: View {
             }
         }
         .fullScreenCover(isPresented: $isShowDetailBoxView) {
-            YouTubeDetailBoxView()
+            YouTubeDetailBoxView(isSearched: $isSearched)
         }
     }
 }
 
 struct SearchResultView_Previews: PreviewProvider {
     static var previews: some View {
-        SearchResultView()
+        SearchResultView(isSearched: .constant(false))
     }
 }

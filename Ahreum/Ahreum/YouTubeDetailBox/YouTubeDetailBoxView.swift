@@ -9,59 +9,110 @@ import SwiftUI
 
 struct YouTubeDetailBoxView: View {
     @Environment(\.dismiss) private var dismiss
+    @State var nowBallCount = 0
+    @State var todayBallCount = UserDefaultManager.shared.getTodayBallCount() ?? 0
     @State var isLoading = true
+    @State var isShowAlert = false
+    @Binding var isSearched: Bool
     @StateObject private var network = RequestAPIYouTubeDetailBox.shared
     
     var body: some View {
-        VStack(spacing: 0) {
-            HStack(spacing: 0) {
-                Spacer()
-                Text("Xmark")
-                    .onTapGesture {
-                        dismiss()
+        ZStack() {
+            VStack(spacing: 0) {
+                HStack(spacing: 0) {
+                    Spacer()
+                    Text("Xmark")
+                        .onTapGesture {
+                            isShowAlert = true
+                        }
+                        .onAppear {
+                            UserDefaultManager.shared.addUsingBallCount()
+                            nowBallCount = UserDefaultManager.shared.getUsingBallCount() ?? 0
+                        }
+                }
+                let model = network.youTubeDetailBoxModel
+                if let url = URL(string: model.url) {
+                    WebView(url: url, isLoading: $isLoading)
+                        .frame(minHeight: 0, maxHeight: UIScreen.main.bounds.height * 0.3)
+                        .overlay {
+                            if isLoading {
+                                Image("loadingBack").resizable()
+                                    .frame(minHeight: 0, maxHeight: UIScreen.main.bounds.height * 0.3)
+                                    .overlay {
+                                        ProgressView()
+                                    }
+                            }
+                        }
+                        .padding(.bottom, 10)
+                } else {
+                    Image("tempImage").resizable()
+                        .frame(width: 160, height: 90)
+                        .cornerRadius(10)
+                }
+                Text(model.title)
+                    .alignment(.leading)
+                    .padding(.bottom, 3)
+                Text(model.description)
+                    .font(.caption)
+                    .alignment(.leading)
+                    .foregroundColor(.gray_)
+                ScrollView(showsIndicators: false) {
+                    ForEach(model.commentList, id: \.self) { comment in
+                        Text(comment)
+                            .alignment(.leading)
+                            .padding(.bottom, 10)
                     }
+                }
+                Spacer()
             }
-            let model = network.youTubeDetailBoxModel
-            if let url = URL(string: model.url) {
-                WebView(url: url, isLoading: $isLoading)
-                    .frame(minHeight: 0, maxHeight: UIScreen.main.bounds.height * 0.3)
-                    .overlay {
-                        if isLoading {
-                            Image("loadingBack").resizable()
-                                .frame(minHeight: 0, maxHeight: UIScreen.main.bounds.height * 0.3)
-                                .overlay {
-                                    ProgressView()
+            .paddingHorizontal()
+            if isShowAlert {
+                VStack(spacing: 0) {
+                    Spacer()
+                    VStack(spacing: 0) {
+                        let remainBallCount = todayBallCount - nowBallCount
+                        if remainBallCount == 0 {
+                            Text("티켓이 남지 않았습니다.")
+                        } else {
+                            Text("티켓이 \(todayBallCount), \(nowBallCount)개 남았습니다.")
+                        }
+                        HStack(spacing: 0) {
+                            if remainBallCount != 0 {
+                                Button {
+                                    dismiss()
+                                } label: {
+                                    Text("예")
+                                        .padding()
+                                        .background(Color.gray_)
+                                        .cornerRadius(10)
+                                        .padding()
                                 }
+                            }
+                            Button {
+                                dismiss()
+                                isSearched = false
+                            } label: {
+                                Text("홈으로 돌아가기")
+                                    .padding()
+                                    .background(Color.gray_)
+                                    .cornerRadius(10)
+                            }
                         }
                     }
-                    .padding(.bottom, 10)
-            } else {
-                Image("tempImage").resizable()
-                    .frame(width: 160, height: 90)
-                    .cornerRadius(10)
-            }
-            Text(model.title)
-                .alignment(.leading)
-                .padding(.bottom, 3)
-            Text(model.description)
-                .font(.caption)
-                .alignment(.leading)
-                .foregroundColor(.gray_)
-            ScrollView(showsIndicators: false) {
-                ForEach(model.commentList, id: \.self) { comment in
-                    Text(comment)
-                        .alignment(.leading)
-                        .padding(.bottom, 10)
+                    .padding(40)
+                    .background(Color.white)
+                    .cornerRadius(20)
+                    Spacer()
                 }
+                .frame(maxWidth: .infinity)
+                .background(Color.gray_)
             }
-            Spacer()
         }
-        .paddingHorizontal()
     }
 }
 
 struct YouTubeDetailBoxView_Previews: PreviewProvider {
     static var previews: some View {
-        YouTubeDetailBoxView()
+        YouTubeDetailBoxView(isSearched: .constant(false))
     }
 }

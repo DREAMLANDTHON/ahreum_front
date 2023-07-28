@@ -20,7 +20,6 @@ struct YouTubeBigBoxView: View {
                 if let url = URL(string: model.image) {
                     ImageView(url: url, width: 160, height: 90)
                         .cornerRadius(10)
-                        
                 } else {
                     Image("tempImage").resizable()
                         .frame(width: 160, height: 90)
@@ -43,8 +42,8 @@ struct YouTubeBigBoxView: View {
                 Text(model.channelName)
                     .alignment(.leading)
                     .foregroundColor(.gray_)
-                Spacer()
             }
+            .alignment(.topLeading)
         }
     }
 }
