@@ -19,15 +19,14 @@ struct YouTubeBigBoxView: View {
             ZStack(alignment: .bottomTrailing) {
                 if let url = URL(string: model.image) {
                     ImageView(url: url)
+                        .frame(maxWidth: .infinity, maxHeight: 180)
                         .cornerRadius(10)
-                        .padding(.horizontal, 20)
                 } else {
                     Image("tempImage").resizable()
-                        .frame(width: 160, height: 90)
+                        .frame(maxWidth: .infinity, maxHeight: 180)
                         .cornerRadius(10)
                 }
                 Text(model.lengthTime)
-                    .font(.caption2)
                     .padding(.horizontal,5)
                     .padding(.vertical,2)
                     .background(.black)
@@ -40,12 +39,18 @@ struct YouTubeBigBoxView: View {
             VStack(spacing: 0) {
                 Text(model.title)
                     .alignment(.leading)
+                    .buttonBold12()
+                    .padding(.top, 8)
                 Text(model.channelName)
+                    .buttonBold12()
                     .alignment(.leading)
-                    .foregroundColor(.gray_)
+                    .padding(.top, 5)
+                    .foregroundColor(Color(hex: "C0C0C0"))
             }
+            .padding(.horizontal, 6)
             .alignment(.topLeading)
         }
+        .padding(.horizontal, 20)
     }
 }
 

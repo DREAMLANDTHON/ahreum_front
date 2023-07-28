@@ -7,13 +7,16 @@
 
 import SwiftUI
 
-struct UserDefaultManager {
+class UserDefaultManager {
     static let shared = UserDefaultManager()
     
     enum UserDefaultKey: String, CaseIterable {
         case todayBallCount
         case usingBallCount
+        case userId
     }
+    
+    var id: String = ""
     
     func resetAllUserDefault() {
         var key = UserDefaultKey.todayBallCount.rawValue

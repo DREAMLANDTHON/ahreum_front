@@ -23,6 +23,9 @@
 		FBD2F4582A73B85100BA9A77 /* YouTubeDetailBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD2F4572A73B85100BA9A77 /* YouTubeDetailBoxView.swift */; };
 		FBD2F4622A74053700BA9A77 /* SearchResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD2F4612A74053700BA9A77 /* SearchResultView.swift */; };
 		FBD2F4642A7406A200BA9A77 /* UserDefaultManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD2F4632A7406A200BA9A77 /* UserDefaultManager.swift */; };
+		FBE7668C2A74448B00BD09D1 /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = FBE7668A2A74448B00BD09D1 /* Pretendard-Bold.otf */; };
+		FBE7668D2A74448B00BD09D1 /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = FBE7668B2A74448B00BD09D1 /* Pretendard-Medium.otf */; };
+		FBE7668F2A7446B400BD09D1 /* Pretendard-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = FBE7668E2A7446B400BD09D1 /* Pretendard-Regular.otf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +48,9 @@
 		FBD2F45E2A73FBC300BA9A77 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		FBD2F4612A74053700BA9A77 /* SearchResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultView.swift; sourceTree = "<group>"; };
 		FBD2F4632A7406A200BA9A77 /* UserDefaultManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultManager.swift; sourceTree = "<group>"; };
+		FBE7668A2A74448B00BD09D1 /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Bold.otf"; sourceTree = "<group>"; };
+		FBE7668B2A74448B00BD09D1 /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.otf"; sourceTree = "<group>"; };
+		FBE7668E2A7446B400BD09D1 /* Pretendard-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Regular.otf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +93,9 @@
 				FBD2F4592A73B89A00BA9A77 /* YouTubeBigBox */,
 				FB2BEB4B2A737C2B00930A27 /* Utility */,
 				FB2BEB412A7379CF00930A27 /* Assets.xcassets */,
+				FBE7668A2A74448B00BD09D1 /* Pretendard-Bold.otf */,
+				FBE7668E2A7446B400BD09D1 /* Pretendard-Regular.otf */,
+				FBE7668B2A74448B00BD09D1 /* Pretendard-Medium.otf */,
 				FB2BEB432A7379CF00930A27 /* Preview Content */,
 			);
 			path = Ahreum;
@@ -190,7 +199,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				FB2BEB452A7379CF00930A27 /* Preview Assets.xcassets in Resources */,
+				FBE7668C2A74448B00BD09D1 /* Pretendard-Bold.otf in Resources */,
+				FBE7668F2A7446B400BD09D1 /* Pretendard-Regular.otf in Resources */,
 				FB2BEB422A7379CF00930A27 /* Assets.xcassets in Resources */,
+				FBE7668D2A74448B00BD09D1 /* Pretendard-Medium.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

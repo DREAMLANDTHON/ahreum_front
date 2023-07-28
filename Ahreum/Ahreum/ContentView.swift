@@ -13,8 +13,17 @@ struct ContentView: View {
     @State var isFirstComeToday: Bool
     @State var isShowSearchView: Bool
     @State var searchText: String = ""
+    @State var isTouchedSearchbar = false
     @State var isSearched = false
     @FocusState private var isKeyBoardOn: Bool
+    
+    private let columns = [
+        GridItem(.flexible(), spacing: 0, alignment: .leading),
+        GridItem(.flexible(), spacing: 0, alignment: .leading),
+        GridItem(.flexible(), spacing: 0, alignment: .leading),
+        GridItem(.flexible(), spacing: 0, alignment: .leading)
+    ]
+    
     
     init() {
         //TODO: 삭제해야함
@@ -34,113 +43,180 @@ struct ContentView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            NavigationView()
+            HStack(spacing: 0) {
+                Image("logo")
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 77, height: 27)
+                    .padding(.vertical, 12)
+                NavigationView()
+                Spacer()
+            }
+            .paddingHorizontal()
+            dividerThick1
+                .padding(.bottom, 45)
             if isSearched {
-                SearchResultView(isSearched: $isSearched)
+                SearchResultView(isSearched: $isSearched, searchText: $searchText)
             } else {
                 TodayChallenge()
                 VStack(spacing: 0) {
-                    Text("내가 만드는 알고리즘")
-                        .alignment(.leading)
-                    Text("나는 이런 것들을 좋아하는 구나!")
-                        .alignment(.leading)
+                    HStack(alignment: .bottom, spacing: 0) {
+                        Text("내가 만든 알고리즘")
+                            .titleBold20()
+                            .alignment(.leading)
+                            .padding(.leading, 5)
+                            .padding(.top, 25)
+                            .padding(.bottom, 15)
+                        VStack {
+                            Text("Ai가 분석한 김썸머의 맞춤 키워드")
+                                .buttonBold12()
+                                .foregroundColor(.Orange)
+                                .padding(.bottom, 15)
+                        }
+                    }
+                    .overlay(alignment: .topTrailing) {
+                        Image("alert")
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: 13, height: 13)
+                            .padding(.top, 20)
+                    }
+                    VStack(alignment: .center, spacing: 0) {
+                        LazyVGrid(columns: columns, spacing: 15) {
+                            ForEach(1...10, id: \.self) { num in
+                                HStack(alignment: .center, spacing: 0) {
+                                    Spacer()
+                                    Text("아아아")
+                                        .alignment(.center)
+                                        .buttonBold12()
+                                        .foregroundColor(Color.white)
+                                }
+                                .padding(.horizontal, 12)
+                                .padding(.top, 5)
+                                .padding(.bottom, 6)
+                                .background(Color.Orange)
+                                .cornerRadius(15)
+                                .padding(.horizontal, 5)
+                            }
+                        }
+                        .padding(15)
+                        Spacer()
+                    }
+                    .frame(maxWidth: .infinity, maxHeight: 199)
+                    .background(Color.grayF8)
+                    .cornerRadius(10)
                 }
-                .padding()
-                .background(Color.gray.opacity(0.2))
+                .paddingHorizontal()
             }
             Spacer()
         }
-        .foregroundColor(.black_)
-        .paddingHorizontal()
     }
 }
 
 extension ContentView {
     @ViewBuilder
-    private func ballTicket(number: Int) -> some View {
-        Circle()
-            .frame(width: 25, height: 25)
-            .overlay {
-                Text("\(number)")
-                    .foregroundColor(.white)
-            }
-    }
-    @ViewBuilder
     private func TodayChallenge() -> some View {
         VStack(spacing: 0) {
             Text("오늘의 챌린지")
+                .titleBold20()
                 .alignment(.leading)
+                .padding(.bottom, 14)
+                .padding(.leading, 5)
             HStack(spacing: 0) {
                 Image("Phong")
                     .resizable()
-                    .frame(width: 120, height: 120)
+                    .scaledToFill()
+                    .frame(width: 80, height: 80)
+                    .padding(.horizontal, 20)
+                    .padding(.vertical, 40)
                 VStack(spacing: 0) {
                     Text(isFirstComeToday ? "몇 회까지 제한을 둘까요?" : "김써머님")
-                        .foregroundColor(.black_)
+                        .titleBold17()
+                        .foregroundColor(Color.Orange)
                         .alignment(.leading)
                         .padding(.bottom, 20)
+                        .padding(.leading, 5)
                     if isFirstComeToday {
                         HStack(spacing: 0) {
-                            ForEach(1...6, id: \.self) { num in
-                                ballTicket(number: num)
-                                    .padding(.horizontal, 5)
+                            ForEach(1..<6, id: \.self) { num in
+                                ballTicket(number: num, color: Color.Orange, isNumber: true)
+                                    .padding(.horizontal, 3)
                                     .onTapGesture {
                                         UserDefaultManager.shared.saveTodayBallCount(num: num)
                                         todayBallCount = num
                                         isFirstComeToday = false
                                     }
                             }
+                            Spacer()
                         }
                     } else {
+                        Text("남은 Ball")
+                            .bodymedium12()
+                            .alignment(.leading)
+                            .padding(.bottom, 10)
+                            .padding(.leading, 5)
                         HStack(spacing: 0) {
-                            VStack(spacing: 0) {
-                                Text("총 사용 Ticket")
-                                    .padding(.bottom, 10)
-                                Text("\(todayBallCount)개")
+                            let remainBallCount = todayBallCount - usingBallCount
+                            ForEach(0..<usingBallCount, id: \.self) { num in
+                                ballTicket(number: num, color: Color.grayCC, isNumber: false)
+                                    .foregroundColor(.grayCC)
+                                    .padding(.horizontal, 3)
                             }
-                            .padding(.trailing, 20)
-                            
-                            VStack(spacing: 0) {
-                                Text("남은 Ticket")
-                                    .padding(.bottom, 10)
-                                Text("\(todayBallCount - usingBallCount)개")
+                            ForEach(0..<remainBallCount, id: \.self) { num in
+                                ballTicket(number: num+1, color: Color.Orange, isNumber: true)
+                                    .padding(.horizontal, 3)
                             }
+                            Spacer()
                         }
                     }
                 }
             }
+            .background(Color.grayF8)
+            .cornerRadius(10)
         }
-        .background(Color.gray.opacity(0.2))
-        .padding()
+        .paddingHorizontal()
     }
     @ViewBuilder
     private func NavigationView() -> some View {
         HStack(spacing: 0) {
             if !isFirstComeToday {
                 if isShowSearchView {
-                Image(systemName: "magnifyingglass")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 16, height: 16)
-                    .padding(.trailing, 7)
-                    .foregroundColor(.black_)
-                TextField("검색", text: $searchText)
-                    .submitLabel(.done)
-                    .focused($isKeyBoardOn)
-                if searchText != "" {
-                    Button(action: {
-                        isSearched = false
-                    }) {
-                        Image(systemName: "x.circle.fill")
+                    TextField("", text: $searchText)
+                        .submitLabel(.done)
+                        .focused($isKeyBoardOn)
+                        .padding(.leading, 10)
+                    if searchText != "" {
+                        Button(action: {
+                            isSearched = false
+                            searchText = ""
+                        }) {
+                            Image(systemName: "x.circle.fill")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 16, height: 16)
+                                .padding(.trailing, 10)
+                                .foregroundColor(Color.Orange.opacity(0.8))
+                        }
+                    } else {
+                        Image(systemName: "magnifyingglass")
                             .resizable()
                             .scaledToFit()
                             .frame(width: 16, height: 16)
-                            .padding(.trailing, 10)
+                            .padding(.trailing, 7)
+                            .onTapGesture {
+                                isTouchedSearchbar = true
+                            }
                     }
-                }
                 }
             }
         }
+        .padding(4)
+        .background(Color.white)
+        .cornerRadius(16)
+        .padding(1)
+        .background(isTouchedSearchbar ? Color.grayCC : .white )
+        .cornerRadius(16)
+        .padding(.leading, 28)
         .onChange(of: isSearched, perform: { newValue in
             if newValue == false {
                 searchText = ""
@@ -157,7 +233,6 @@ extension ContentView {
         .onChange(of: isKeyBoardOn, perform: { newValue in
             isSearched = true
         })
-        .padding(.horizontal, 10)
         .padding(.vertical, 9)
     }
 }

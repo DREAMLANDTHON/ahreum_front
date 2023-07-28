@@ -21,8 +21,7 @@ struct YouTubeDetailBoxView: View {
         ZStack() {
             VStack(spacing: 0) {
                 HStack(spacing: 0) {
-                    Spacer()
-                    Text("Xmark")
+                    Image(systemName: "chevron.backward")
                         .onTapGesture {
                             isShowAlert = true
                         }
@@ -30,7 +29,15 @@ struct YouTubeDetailBoxView: View {
                             UserDefaultManager.shared.addUsingBallCount()
                             nowBallCount = UserDefaultManager.shared.getUsingBallCount() ?? 0
                         }
+                        .padding(.trailing, 20)
+                    Image("logo")
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 77, height: 27)
+                        .padding(.vertical, 12)
+                    Spacer()
                 }
+                .paddingHorizontal()
                 let model = network.youTubeDetailBoxModel
                 if let url = URL(string: model.url) {
                     WebView(url: url, isLoading: $isLoading)
@@ -50,43 +57,68 @@ struct YouTubeDetailBoxView: View {
                         .frame(width: 160, height: 90)
                         .cornerRadius(10)
                 }
-                Text(model.title)
-                    .alignment(.leading)
-                    .padding(.bottom, 3)
-                Text(model.description)
-                    .font(.caption)
-                    .alignment(.leading)
-                    .foregroundColor(.gray_)
-                    .frame(height: isdetaileViewClipped ? 60 : nil)
-                    .overlay(alignment: .bottomTrailing) {
-                        if isdetaileViewClipped {
-                            Text("더보기")
-                                .background(Color.white)
-                                .onTapGesture {
-                                    isdetaileViewClipped = false
-                                }
+                ScrollView(showsIndicators: false) {
+                    Text(model.title)
+                        .titleBold17()
+                        .alignment(.leading)
+                        .padding(.bottom, 13)
+                    Text(model.description)
+                        .bodymedium12()
+                        .lineSpacing(4)
+                        .alignment(.leading)
+                        .frame(height: isdetaileViewClipped ? 60 : nil)
+                        .overlay(alignment: .bottomTrailing) {
+                            if isdetaileViewClipped {
+                                Text("더보기")
+                                    .background(Color.grayF8)
+                                    .bodymedium12()
+                                    .onTapGesture {
+                                        isdetaileViewClipped = false
+                                    }
+                            }
+                        }
+                        .padding()
+                        .background(Color.grayF8)
+                        .cornerRadius(10)
+                        .animation(Animation.easeInOut(duration: 0.2), value: isdetaileViewClipped)
+                        .padding(.bottom, 20)
+                    VStack(spacing: 0) {
+                        Text("댓글")
+                            .alignment(.leading)
+                            .buttonBold14()
+                            .padding(.bottom, 20)
+                        ForEach(model.commentList, id: \.self) { comment in
+                            HStack(alignment: .top, spacing: 0) {
+                                Image("icon")
+                                    .resizable()
+                                    .scaledToFill()
+                                    .frame(width: 30, height: 30)
+                                    .padding(.trailing, 15)
+                                Text(comment)
+                                    .alignment(.leading)
+                                    .bodymedium12()
+                                    .lineSpacing(4)
+                                    .padding(.top, 3)
+                            }
+                            .padding(.bottom, 20)
                         }
                     }
-                    .animation(Animation.easeInOut(duration: 0.2), value: isdetaileViewClipped)
-                ScrollView(showsIndicators: false) {
-                    ForEach(model.commentList, id: \.self) { comment in
-                        Text(comment)
-                            .alignment(.leading)
-                            .padding(.bottom, 10)
-                    }
+                    .padding()
+                    .background(Color.grayF8)
+                    .cornerRadius(10)
                 }
+                .paddingHorizontal()
                 Spacer()
             }
-            .paddingHorizontal()
             if isShowAlert {
                 VStack(spacing: 0) {
                     Spacer()
                     VStack(spacing: 0) {
                         let remainBallCount = todayBallCount - nowBallCount
                         if remainBallCount == 0 {
-                            Text("티켓이 남지 않았습니다.")
+                            Text("Ball이 남지 않았습니다.")
                         } else {
-                            Text("티켓이 \(remainBallCount)개 남았습니다.")
+                            Text("Ball이 \(remainBallCount)개 남았습니다.")
                         }
                         HStack(spacing: 0) {
                             if remainBallCount != 0 {
@@ -94,10 +126,12 @@ struct YouTubeDetailBoxView: View {
                                     dismiss()
                                 } label: {
                                     Text("예")
-                                        .padding()
-                                        .background(Color.gray_)
+                                        .foregroundColor(Color.black)
+                                        .padding(.horizontal, 20)
+                                        .padding(.vertical, 12)
+                                        .background(Color(hex: "E9E9E9"))
                                         .cornerRadius(10)
-                                        .padding()
+                                        .padding(.trailing, 8)
                                 }
                             }
                             Button {
@@ -105,19 +139,23 @@ struct YouTubeDetailBoxView: View {
                                 isSearched = false
                             } label: {
                                 Text("홈으로 돌아가기")
-                                    .padding()
-                                    .background(Color.gray_)
+                                    .foregroundColor(Color.white)
+                                    .padding(.horizontal, 37)
+                                    .padding(.vertical, 12)
+                                    .background(Color.Orange)
                                     .cornerRadius(10)
                             }
                         }
+                        .padding(.top, 44)
                     }
                     .padding(40)
                     .background(Color.white)
-                    .cornerRadius(20)
+                    .cornerRadius(13)
                     Spacer()
                 }
-                .frame(maxWidth: .infinity)
-                .background(Color.gray_)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .background(Color(hex: "4B4B4B")?.opacity(0.9))
+                .ignoresSafeArea()
             }
         }
     }
