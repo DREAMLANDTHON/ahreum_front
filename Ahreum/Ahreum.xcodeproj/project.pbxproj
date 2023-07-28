@@ -16,6 +16,11 @@
 		FB2BEB522A73864300930A27 /* RequestAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2BEB512A73864200930A27 /* RequestAPI.swift */; };
 		FB2BEB542A73866600930A27 /* YouTubeBigBoxModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2BEB532A73866600930A27 /* YouTubeBigBoxModel.swift */; };
 		FB2BEB562A73868000930A27 /* YouTubeBigBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2BEB552A73868000930A27 /* YouTubeBigBoxView.swift */; };
+		FBD2F44E2A73B80000BA9A77 /* RequestAPIYouTubeBigBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD2F44D2A73B80000BA9A77 /* RequestAPIYouTubeBigBox.swift */; };
+		FBD2F4522A73B82200BA9A77 /* YouTubeDetailBoxModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD2F4512A73B82200BA9A77 /* YouTubeDetailBoxModel.swift */; };
+		FBD2F4542A73B83000BA9A77 /* RequestAPIYouTubeDetailBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD2F4532A73B83000BA9A77 /* RequestAPIYouTubeDetailBox.swift */; };
+		FBD2F4562A73B84100BA9A77 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD2F4552A73B84100BA9A77 /* WebView.swift */; };
+		FBD2F4582A73B85100BA9A77 /* YouTubeDetailBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD2F4572A73B85100BA9A77 /* YouTubeDetailBoxView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +34,11 @@
 		FB2BEB512A73864200930A27 /* RequestAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestAPI.swift; sourceTree = "<group>"; };
 		FB2BEB532A73866600930A27 /* YouTubeBigBoxModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouTubeBigBoxModel.swift; sourceTree = "<group>"; };
 		FB2BEB552A73868000930A27 /* YouTubeBigBoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouTubeBigBoxView.swift; sourceTree = "<group>"; };
+		FBD2F44D2A73B80000BA9A77 /* RequestAPIYouTubeBigBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestAPIYouTubeBigBox.swift; sourceTree = "<group>"; };
+		FBD2F4512A73B82200BA9A77 /* YouTubeDetailBoxModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouTubeDetailBoxModel.swift; sourceTree = "<group>"; };
+		FBD2F4532A73B83000BA9A77 /* RequestAPIYouTubeDetailBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestAPIYouTubeDetailBox.swift; sourceTree = "<group>"; };
+		FBD2F4552A73B84100BA9A77 /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
+		FBD2F4572A73B85100BA9A77 /* YouTubeDetailBoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouTubeDetailBoxView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,8 +74,8 @@
 				FB2BEB3D2A7379CE00930A27 /* AhreumApp.swift */,
 				FB2BEB3F2A7379CE00930A27 /* ContentView.swift */,
 				FB2BEB512A73864200930A27 /* RequestAPI.swift */,
-				FB2BEB552A73868000930A27 /* YouTubeBigBoxView.swift */,
-				FB2BEB532A73866600930A27 /* YouTubeBigBoxModel.swift */,
+				FBD2F45A2A73B8A600BA9A77 /* YouTubeDetailBox */,
+				FBD2F4592A73B89A00BA9A77 /* YouTubeBigBox */,
 				FB2BEB4B2A737C2B00930A27 /* Utility */,
 				FB2BEB412A7379CF00930A27 /* Assets.xcassets */,
 				FB2BEB432A7379CF00930A27 /* Preview Content */,
@@ -88,6 +98,27 @@
 				FB2BEB4F2A737F7300930A27 /* View.swift */,
 			);
 			path = Utility;
+			sourceTree = "<group>";
+		};
+		FBD2F4592A73B89A00BA9A77 /* YouTubeBigBox */ = {
+			isa = PBXGroup;
+			children = (
+				FBD2F4552A73B84100BA9A77 /* WebView.swift */,
+				FB2BEB532A73866600930A27 /* YouTubeBigBoxModel.swift */,
+				FB2BEB552A73868000930A27 /* YouTubeBigBoxView.swift */,
+				FBD2F44D2A73B80000BA9A77 /* RequestAPIYouTubeBigBox.swift */,
+			);
+			path = YouTubeBigBox;
+			sourceTree = "<group>";
+		};
+		FBD2F45A2A73B8A600BA9A77 /* YouTubeDetailBox */ = {
+			isa = PBXGroup;
+			children = (
+				FBD2F4512A73B82200BA9A77 /* YouTubeDetailBoxModel.swift */,
+				FBD2F4572A73B85100BA9A77 /* YouTubeDetailBoxView.swift */,
+				FBD2F4532A73B83000BA9A77 /* RequestAPIYouTubeDetailBox.swift */,
+			);
+			path = YouTubeDetailBox;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -163,8 +194,13 @@
 				FB2BEB502A737F7300930A27 /* View.swift in Sources */,
 				FB2BEB402A7379CE00930A27 /* ContentView.swift in Sources */,
 				FB2BEB542A73866600930A27 /* YouTubeBigBoxModel.swift in Sources */,
+				FBD2F4542A73B83000BA9A77 /* RequestAPIYouTubeDetailBox.swift in Sources */,
+				FBD2F4582A73B85100BA9A77 /* YouTubeDetailBoxView.swift in Sources */,
+				FBD2F44E2A73B80000BA9A77 /* RequestAPIYouTubeBigBox.swift in Sources */,
+				FBD2F4522A73B82200BA9A77 /* YouTubeDetailBoxModel.swift in Sources */,
 				FB2BEB4E2A737C4600930A27 /* Color.swift in Sources */,
 				FB2BEB562A73868000930A27 /* YouTubeBigBoxView.swift in Sources */,
+				FBD2F4562A73B84100BA9A77 /* WebView.swift in Sources */,
 				FB2BEB522A73864300930A27 /* RequestAPI.swift in Sources */,
 				FB2BEB3E2A7379CE00930A27 /* AhreumApp.swift in Sources */,
 			);

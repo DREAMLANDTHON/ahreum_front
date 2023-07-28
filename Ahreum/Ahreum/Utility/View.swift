@@ -17,7 +17,6 @@ extension View {
                 image.resizable()
                     .frame(width: width, height: height)
             } placeholder: {
-                // 로딩
                 Image("loadingBack").resizable()
                     .frame(width: width, height: height)
                     .overlay {
