@@ -9,10 +9,11 @@ import SwiftUI
 
 struct YouTubeDetailBoxView: View {
     @Environment(\.dismiss) private var dismiss
-    @State var nowBallCount = 0
+    @State var nowBallCount = UserDefaultManager.shared.getUsingBallCount() ?? 0
     @State var todayBallCount = UserDefaultManager.shared.getTodayBallCount() ?? 0
     @State var isLoading = true
     @State var isShowAlert = false
+    @State var isdetaileViewClipped = true
     @Binding var isSearched: Bool
     @StateObject private var network = RequestAPIYouTubeDetailBox.shared
     
@@ -56,6 +57,17 @@ struct YouTubeDetailBoxView: View {
                     .font(.caption)
                     .alignment(.leading)
                     .foregroundColor(.gray_)
+                    .frame(height: isdetaileViewClipped ? 60 : nil)
+                    .overlay(alignment: .bottomTrailing) {
+                        if isdetaileViewClipped {
+                            Text("더보기")
+                                .background(Color.white)
+                                .onTapGesture {
+                                    isdetaileViewClipped = false
+                                }
+                        }
+                    }
+                    .animation(Animation.easeInOut(duration: 0.2), value: isdetaileViewClipped)
                 ScrollView(showsIndicators: false) {
                     ForEach(model.commentList, id: \.self) { comment in
                         Text(comment)
@@ -74,7 +86,7 @@ struct YouTubeDetailBoxView: View {
                         if remainBallCount == 0 {
                             Text("티켓이 남지 않았습니다.")
                         } else {
-                            Text("티켓이 \(todayBallCount), \(nowBallCount)개 남았습니다.")
+                            Text("티켓이 \(remainBallCount)개 남았습니다.")
                         }
                         HStack(spacing: 0) {
                             if remainBallCount != 0 {

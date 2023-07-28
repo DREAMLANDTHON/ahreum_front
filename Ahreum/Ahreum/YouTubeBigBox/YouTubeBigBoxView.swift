@@ -15,11 +15,12 @@ struct YouTubeBigBoxView: View {
     }
     
     var body: some View {
-        HStack(spacing: 0) {
+        VStack(spacing: 0) {
             ZStack(alignment: .bottomTrailing) {
                 if let url = URL(string: model.image) {
-                    ImageView(url: url, width: 160, height: 90)
+                    ImageView(url: url)
                         .cornerRadius(10)
+                        .padding(.horizontal, 20)
                 } else {
                     Image("tempImage").resizable()
                         .frame(width: 160, height: 90)

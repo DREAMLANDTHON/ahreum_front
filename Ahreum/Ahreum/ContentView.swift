@@ -17,7 +17,9 @@ struct ContentView: View {
     @FocusState private var isKeyBoardOn: Bool
     
     init() {
+        //TODO: 삭제해야함
         UserDefaultManager.shared.resetAllUserDefault()
+        
         if let todayBallCount = UserDefaultManager.shared.getTodayBallCount() {
             self.todayBallCount = todayBallCount
             self.usingBallCount = UserDefaultManager.shared.getUsingBallCount() ?? 0

@@ -12,13 +12,13 @@ extension View {
         self
             .padding(.horizontal, 27)
     }
-    func ImageView(url: URL, width: CGFloat, height: CGFloat) -> some View {
+    func ImageView(url: URL) -> some View {
         AsyncImage(url: url) { image in
                 image.resizable()
-                    .frame(width: width, height: height)
+                .scaledToFill()
             } placeholder: {
                 Image("loadingBack").resizable()
-                    .frame(width: width, height: height)
+                    .scaledToFill()
                     .overlay {
                         ProgressView()
                     }
@@ -27,5 +27,11 @@ extension View {
     func alignment(_ position: Alignment) -> some View {
         self
             .frame(maxWidth: .infinity, alignment: .leading)
+    }
+}
+
+class Utils {
+    static func getDeviceUUID() -> String {
+        return UIDevice.current.identifierForVendor!.uuidString
     }
 }
