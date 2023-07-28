@@ -15,12 +15,11 @@ class RequestAPIYouTubeDetailBox: ObservableObject {
     
     func fetchData(){
         
-        guard let url = URL(string: "https://digooo.shop:5000/detail") else {
+        guard let url = URL(string: "http://172.17.127.90:5000/detail") else {
             return
         }
         
         let session = URLSession(configuration: .default)
-        
         let task = session.dataTask(with: url) { data, response, error in
             if let error = error{
                 print(error.localizedDescription)
@@ -35,7 +34,7 @@ class RequestAPIYouTubeDetailBox: ObservableObject {
             do{
                 let apiResponse = try JSONDecoder().decode(YouTubeDetailBoxResult.self, from: data)
                 DispatchQueue.main.async {
-                    self.youTubeDetailBoxModel = apiResponse.youTubeDetailBoxModel
+                    self.youTubeDetailBoxModel = apiResponse.YouTubeDetailBoxResult
                 }
             }catch(let err){
                 print(err.localizedDescription)

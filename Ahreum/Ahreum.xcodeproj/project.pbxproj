@@ -21,6 +21,8 @@
 		FBD2F4542A73B83000BA9A77 /* RequestAPIYouTubeDetailBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD2F4532A73B83000BA9A77 /* RequestAPIYouTubeDetailBox.swift */; };
 		FBD2F4562A73B84100BA9A77 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD2F4552A73B84100BA9A77 /* WebView.swift */; };
 		FBD2F4582A73B85100BA9A77 /* YouTubeDetailBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD2F4572A73B85100BA9A77 /* YouTubeDetailBoxView.swift */; };
+		FBD2F4622A74053700BA9A77 /* SearchResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD2F4612A74053700BA9A77 /* SearchResultView.swift */; };
+		FBD2F4642A7406A200BA9A77 /* UserDefaultManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD2F4632A7406A200BA9A77 /* UserDefaultManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +41,10 @@
 		FBD2F4532A73B83000BA9A77 /* RequestAPIYouTubeDetailBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestAPIYouTubeDetailBox.swift; sourceTree = "<group>"; };
 		FBD2F4552A73B84100BA9A77 /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
 		FBD2F4572A73B85100BA9A77 /* YouTubeDetailBoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouTubeDetailBoxView.swift; sourceTree = "<group>"; };
+		FBD2F45B2A73C32F00BA9A77 /* Ahreum.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Ahreum.entitlements; sourceTree = "<group>"; };
+		FBD2F45E2A73FBC300BA9A77 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		FBD2F4612A74053700BA9A77 /* SearchResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultView.swift; sourceTree = "<group>"; };
+		FBD2F4632A7406A200BA9A77 /* UserDefaultManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,8 +77,11 @@
 		FB2BEB3C2A7379CE00930A27 /* Ahreum */ = {
 			isa = PBXGroup;
 			children = (
+				FBD2F45E2A73FBC300BA9A77 /* Info.plist */,
+				FBD2F45B2A73C32F00BA9A77 /* Ahreum.entitlements */,
 				FB2BEB3D2A7379CE00930A27 /* AhreumApp.swift */,
 				FB2BEB3F2A7379CE00930A27 /* ContentView.swift */,
+				FBD2F4632A7406A200BA9A77 /* UserDefaultManager.swift */,
 				FB2BEB512A73864200930A27 /* RequestAPI.swift */,
 				FBD2F45A2A73B8A600BA9A77 /* YouTubeDetailBox */,
 				FBD2F4592A73B89A00BA9A77 /* YouTubeBigBox */,
@@ -107,6 +116,7 @@
 				FB2BEB532A73866600930A27 /* YouTubeBigBoxModel.swift */,
 				FB2BEB552A73868000930A27 /* YouTubeBigBoxView.swift */,
 				FBD2F44D2A73B80000BA9A77 /* RequestAPIYouTubeBigBox.swift */,
+				FBD2F4612A74053700BA9A77 /* SearchResultView.swift */,
 			);
 			path = YouTubeBigBox;
 			sourceTree = "<group>";
@@ -192,10 +202,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				FB2BEB502A737F7300930A27 /* View.swift in Sources */,
+				FBD2F4622A74053700BA9A77 /* SearchResultView.swift in Sources */,
 				FB2BEB402A7379CE00930A27 /* ContentView.swift in Sources */,
 				FB2BEB542A73866600930A27 /* YouTubeBigBoxModel.swift in Sources */,
 				FBD2F4542A73B83000BA9A77 /* RequestAPIYouTubeDetailBox.swift in Sources */,
 				FBD2F4582A73B85100BA9A77 /* YouTubeDetailBoxView.swift in Sources */,
+				FBD2F4642A7406A200BA9A77 /* UserDefaultManager.swift in Sources */,
 				FBD2F44E2A73B80000BA9A77 /* RequestAPIYouTubeBigBox.swift in Sources */,
 				FBD2F4522A73B82200BA9A77 /* YouTubeDetailBoxModel.swift in Sources */,
 				FB2BEB4E2A737C4600930A27 /* Color.swift in Sources */,
@@ -328,12 +340,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Ahreum/Ahreum.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Ahreum/Preview Content\"";
 				DEVELOPMENT_TEAM = J7ZP3WYXRW;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Ahreum/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -357,12 +371,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Ahreum/Ahreum.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Ahreum/Preview Content\"";
 				DEVELOPMENT_TEAM = J7ZP3WYXRW;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Ahreum/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

@@ -24,4 +24,8 @@ extension View {
                     }
             }
     }
+    func alignment(_ position: Alignment) -> some View {
+        self
+            .frame(maxWidth: .infinity, alignment: .leading)
+    }
 }

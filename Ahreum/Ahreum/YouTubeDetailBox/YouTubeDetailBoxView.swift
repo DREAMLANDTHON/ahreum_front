@@ -41,16 +41,16 @@ struct YouTubeDetailBoxView: View {
                     .cornerRadius(10)
             }
             Text(model.title)
-                .frame(maxWidth: .infinity, alignment: .leading)
+                .alignment(.leading)
                 .padding(.bottom, 3)
             Text(model.description)
                 .font(.caption)
-                .frame(maxWidth: .infinity, alignment: .leading)
+                .alignment(.leading)
                 .foregroundColor(.gray_)
             ScrollView(showsIndicators: false) {
                 ForEach(model.commentList, id: \.self) { comment in
                     Text(comment)
-                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .alignment(.leading)
                         .padding(.bottom, 10)
                 }
             }

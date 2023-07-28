@@ -39,9 +39,9 @@ struct YouTubeBigBoxView: View {
             
             VStack(spacing: 0) {
                 Text(model.title)
-                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .alignment(.leading)
                 Text(model.channelName)
-                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .alignment(.leading)
                     .foregroundColor(.gray_)
                 Spacer()
             }
