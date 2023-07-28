@@ -11,6 +11,7 @@ struct ContentView: View {
     @State var todayBallCount: Int
     @State var usingBallCount: Int
     @State var isFirstComeToday: Bool
+    @State var isShowSearchView: Bool
     @State var searchText: String = ""
     @State var isSearched = false
     @FocusState private var isKeyBoardOn: Bool
@@ -26,6 +27,7 @@ struct ContentView: View {
             self.usingBallCount = 0
             self.isFirstComeToday = true
         }
+        self.isShowSearchView = true
     }
     
     var body: some View {
@@ -112,7 +114,8 @@ extension ContentView {
     @ViewBuilder
     private func NavigationView() -> some View {
         HStack(spacing: 0) {
-            if !isFirstComeToday || todayBallCount - usingBallCount > 0 {
+            if !isFirstComeToday {
+                if isShowSearchView {
                 Image(systemName: "magnifyingglass")
                     .resizable()
                     .scaledToFit()
@@ -133,6 +136,7 @@ extension ContentView {
                             .padding(.trailing, 10)
                     }
                 }
+                }
             }
         }
         .onChange(of: isSearched, perform: { newValue in
@@ -143,6 +147,8 @@ extension ContentView {
             usingBallCount = UserDefaultManager.shared.getUsingBallCount() ?? 0
             
             if todayBallCount - usingBallCount <= 0 {
+                isKeyBoardOn = false
+                isShowSearchView = false
                 isSearched = false
             }
         })
