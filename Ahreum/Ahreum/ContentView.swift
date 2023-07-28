@@ -15,6 +15,7 @@ struct ContentView: View {
     @State var searchText: String = ""
     @State var isTouchedSearchbar = false
     @State var isSearched = false
+    @State var keywordList: [String] = []
     @FocusState private var isKeyBoardOn: Bool
     
     private let columns = [
@@ -81,36 +82,74 @@ struct ContentView: View {
                             .frame(width: 13, height: 13)
                             .padding(.top, 20)
                     }
-                    VStack(alignment: .center, spacing: 0) {
-                        LazyVGrid(columns: columns, spacing: 15) {
-                            ForEach(1...10, id: \.self) { num in
-                                HStack(alignment: .center, spacing: 0) {
-                                    Spacer()
-                                    Text("아아아")
-                                        .alignment(.center)
-                                        .buttonBold12()
-                                        .foregroundColor(Color.white)
+                    
+                        VStack(alignment: .center, spacing: 0) {
+                            if keywordList.isEmpty {
+                                Spacer()
+                                Text("Ai가 김썸머님의 관심 키워드를\n찾아줄 예정입니다!")
+                                    .foregroundColor(Color.Orange)
+                                    .bodymedium12()
+                            } else {
+                                LazyVGrid(columns: columns, spacing: 15) {
+                                    ForEach(keywordList, id: \.self) { keyword in
+                                        HStack(alignment: .center, spacing: 0) {
+                                            Spacer()
+                                            Text(keyword)
+                                                .alignment(.center)
+                                                .buttonBold12()
+                                                .foregroundColor(Color.white)
+                                        }
+                                        .padding(.horizontal, 12)
+                                        .padding(.top, 5)
+                                        .padding(.bottom, 6)
+                                        .background(Color.Orange)
+                                        .cornerRadius(15)
+                                        .padding(.horizontal, 5)
+                                    }
                                 }
-                                .padding(.horizontal, 12)
-                                .padding(.top, 5)
-                                .padding(.bottom, 6)
-                                .background(Color.Orange)
-                                .cornerRadius(15)
-                                .padding(.horizontal, 5)
+                                .padding(15)
                             }
+                            Spacer()
                         }
-                        .padding(15)
-                        Spacer()
-                    }
                     .frame(maxWidth: .infinity, maxHeight: 199)
                     .background(Color.grayF8)
                     .cornerRadius(10)
+                    .onAppear {
+                        // 호출 보내기
+                        print("id", UserDefaultManager.shared.id)
+                        let postData = PostData(user_id: UserDefaultManager.shared.id)
+                        APIManager().sendPostRequest(data: postData, url: "http://digooo.shop:5000/keywords") { result in
+                            switch result {
+                            case .success(let data):
+                                if let responseString = String(data: data, encoding: .utf8) {
+                                    print("Response: \(responseString)")
+                                    
+                                    do{
+                                        let apiResponse = try JSONDecoder().decode(keywords.self, from: data)
+                                        DispatchQueue.main.async {
+                                            self.keywordList = apiResponse.keyword
+                                        }
+                                    }catch(let err){
+                                        print("Error2:\(err.localizedDescription)")
+                                    }
+                                }
+                                // Handle successful response here.
+                            case .failure(let error):
+                                print("Error: \(error.localizedDescription)")
+                                // Handle error here.
+                            }
+                        }
+                    }
                 }
                 .paddingHorizontal()
             }
             Spacer()
         }
     }
+}
+
+struct keywords: Decodable {
+    let keyword: [String]
 }
 
 extension ContentView {
@@ -185,27 +224,30 @@ extension ContentView {
                         .submitLabel(.done)
                         .focused($isKeyBoardOn)
                         .padding(.leading, 10)
-                    if searchText != "" {
-                        Button(action: {
-                            isSearched = false
-                            searchText = ""
-                        }) {
-                            Image(systemName: "x.circle.fill")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 16, height: 16)
-                                .padding(.trailing, 10)
-                                .foregroundColor(Color.Orange.opacity(0.8))
-                        }
-                    } else {
+//                    if searchText != "" {
+//                        Button(action: {
+//                            isSearched = false
+//                            searchText = ""
+//                        }) {
+//                            Image(systemName: "x.circle.fill")
+//                                .resizable()
+//                                .scaledToFit()
+//                                .frame(width: 16, height: 16)
+//                                .padding(.trailing, 10)
+//                                .foregroundColor(Color.Orange.opacity(0.8))
+//                        }
+//                    } else {
                         Image(systemName: "magnifyingglass")
                             .resizable()
                             .scaledToFit()
                             .frame(width: 16, height: 16)
                             .padding(.trailing, 7)
                             .onTapGesture {
+                                if isTouchedSearchbar {
+                                    isSearched = true
+                                }
                                 isTouchedSearchbar = true
-                            }
+//                            }
                     }
                 }
             }
@@ -229,9 +271,6 @@ extension ContentView {
                 isShowSearchView = false
                 isSearched = false
             }
-        })
-        .onChange(of: isKeyBoardOn, perform: { newValue in
-            isSearched = true
         })
         .padding(.vertical, 9)
     }

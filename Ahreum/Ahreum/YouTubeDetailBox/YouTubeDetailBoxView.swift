@@ -7,6 +7,67 @@
 
 import SwiftUI
 
+class RequestAPIYouTubeDetailBox: ObservableObject {
+    static let shared = RequestAPIYouTubeDetailBox()
+    private init() {
+    }
+    @Published var youTubeDetailBoxModel = YouTubeDetailBoxModel()
+    
+    func fetchData(movieID: String) {
+            let id = UserDefaultManager.shared.id
+            let postData2 = PostData2(user_id: id, movie_id: movieID)
+            APIManager().sendPostRequest2(data: postData2, url: "http://digooo.shop:5000/user-api") { result in
+                switch result {
+                case .success(let data):
+                    if let responseString = String(data: data, encoding: .utf8) {
+                        print("Response44: \(responseString)")
+                        
+                        do{
+                            let apiResponse = try JSONDecoder().decode(YouTubeDetailBoxResult.self, from: data)
+                            DispatchQueue.main.async {
+                                self.youTubeDetailBoxModel = apiResponse.YouTubeDetailBoxResult
+                            }
+                        }catch(let err){
+                            print(err.localizedDescription)
+                        }
+                    }
+                    // Handle successful response here.
+                case .failure(let error):
+                    print("Error: \(error.localizedDescription)")
+                    // Handle error here.
+                }
+            }
+//        guard let url = URL(string: "http://172.17.127.90:5000/detail") else {
+//            return
+//        }
+//
+//        let session = URLSession(configuration: .default)
+//        let task = session.dataTask(with: url) { data, response, error in
+//            if let error = error{
+//                print(error.localizedDescription)
+//                return
+//            }
+//            guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
+//                return
+//            }
+//            guard let data = data else{
+//                return
+//            }
+//            do{
+//                let apiResponse = try JSONDecoder().decode(YouTubeDetailBoxResult.self, from: data)
+//                DispatchQueue.main.async {
+//                    self.youTubeDetailBoxModel = apiResponse.YouTubeDetailBoxResult
+//                }
+//            }catch(let err){
+//                print(err.localizedDescription)
+//            }
+//        }
+//        task.resume()
+////        #endif
+    }
+}
+
+
 struct YouTubeDetailBoxView: View {
     @Environment(\.dismiss) private var dismiss
     @State var nowBallCount = UserDefaultManager.shared.getUsingBallCount() ?? 0
@@ -15,6 +76,7 @@ struct YouTubeDetailBoxView: View {
     @State var isShowAlert = false
     @State var isdetaileViewClipped = true
     @Binding var isSearched: Bool
+    let movieID: String
     @StateObject private var network = RequestAPIYouTubeDetailBox.shared
     
     var body: some View {
@@ -28,6 +90,7 @@ struct YouTubeDetailBoxView: View {
                         .onAppear {
                             UserDefaultManager.shared.addUsingBallCount()
                             nowBallCount = UserDefaultManager.shared.getUsingBallCount() ?? 0
+                            network.fetchData(movieID: movieID)
                         }
                         .padding(.trailing, 20)
                     Image("logo")
@@ -163,6 +226,6 @@ struct YouTubeDetailBoxView: View {
 
 struct YouTubeDetailBoxView_Previews: PreviewProvider {
     static var previews: some View {
-        YouTubeDetailBoxView(isSearched: .constant(false))
+        YouTubeDetailBoxView(isSearched: .constant(false), movieID: "asdads")
     }
 }

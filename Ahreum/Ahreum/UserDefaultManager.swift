@@ -29,6 +29,7 @@ class UserDefaultManager {
     func saveTodayBallCount(num: Int) {
         let key = UserDefaultKey.todayBallCount.rawValue
         UserDefaults.standard.set(num, forKey: key)
+        saveUsingBallCount(num: 0)
     }
     
     func getTodayBallCount() -> Int? {
