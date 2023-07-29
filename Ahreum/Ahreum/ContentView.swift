@@ -21,7 +21,6 @@ struct ContentView: View {
     private let columns = [
         GridItem(.flexible(), spacing: 0, alignment: .leading),
         GridItem(.flexible(), spacing: 0, alignment: .leading),
-        GridItem(.flexible(), spacing: 0, alignment: .leading),
         GridItem(.flexible(), spacing: 0, alignment: .leading)
     ]
     
@@ -94,29 +93,58 @@ struct ContentView: View {
                                 Text("Ai가 김썸머님의 관심 키워드를\n찾아줄 예정입니다!")
                                     .foregroundColor(Color.Orange)
                                     .bodymedium12()
-                            } else {
-                                LazyVGrid(columns: columns, spacing: 15) {
-                                    ForEach(keywordList, id: \.self) { keyword in
-                                        HStack(alignment: .center, spacing: 0) {
-                                            Spacer()
-                                            Text(keyword)
-                                                .alignment(.center)
-                                                .buttonBold12()
-                                                .foregroundColor(Color.white)
+                                    .onTapGesture {
+                                        let postData = PostData(user_id: Utils.getDeviceUUID())
+                                        APIManager().sendPostRequest(data: postData, url: "http://digooo.shop:5000/keywords") { result in
+                                            switch result {
+                                            case .success(let data):
+                                                if let responseString = String(data: data, encoding: .utf8) {
+                                                    print("Response: \(responseString)")
+                                                    
+                                                    do{
+                                                        let apiResponse = try JSONDecoder().decode(keywords.self, from: data)
+                                                        DispatchQueue.main.async {
+                                                            self.keywordList = apiResponse.keyword
+                                                        }
+                                                    }catch(let err){
+                                                        print("Error2:\(err.localizedDescription)")
+                                                    }
+                                                }
+                                                // Handle successful response here.
+                                            case .failure(let error):
+                                                print("Error: \(error.localizedDescription)")
+                                                // Handle error here.
+                                            }
                                         }
-                                        .padding(.horizontal, 12)
-                                        .padding(.top, 5)
-                                        .padding(.bottom, 6)
-                                        .background(Color.Orange)
-                                        .cornerRadius(15)
-                                        .padding(.horizontal, 5)
                                     }
+
+                            } else {
+                                ScrollView(showsIndicators: false) {
+                                    LazyVGrid(columns: columns, spacing: 15) {
+                                        ForEach(keywordList, id: \.self) { keyword in
+                                            HStack(alignment: .center, spacing: 0) {
+                                                Spacer()
+                                                Text(keyword)
+                                                    .alignment(.center)
+                                                    .buttonBold12()
+                                                    .padding(.vertical, 7)
+                                                    .foregroundColor(Color.white)
+                                                Spacer()
+                                            }
+                                            .padding(.horizontal, 12)
+                                            .padding(.top, 5)
+                                            .padding(.bottom, 6)
+                                            .background(Color.Orange)
+                                            .cornerRadius(15)
+                                            .padding(.horizontal, 5)
+                                        }
+                                    }
+                                    .padding(15)
                                 }
-                                .padding(15)
                             }
                             Spacer()
                         }
-                    .frame(maxWidth: .infinity, maxHeight: 199)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .background(Color.grayF8)
                     .cornerRadius(10)
                     .onAppear {

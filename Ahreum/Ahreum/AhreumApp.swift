@@ -9,16 +9,22 @@ import SwiftUI
 
 @main
 struct AhreumApp: App {
+    @State var isSplashView = true
     var body: some Scene {
         WindowGroup {
+            if isSplashView {
+                            LaunchScreenView()
+                                .ignoresSafeArea()
+                                .onAppear {
+                                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1.5) {
+                                        isSplashView = false
+                                    }
+                                }
+                        } else {
             ContentView()
                 .onAppear {
                     let key = UserDefaultManager.UserDefaultKey.userId.rawValue
-//                    if let id = UserDefaults.standard.object(forKey: key) as? String {
-//                        UserDefaultManager.shared.id = id
-//                    } else {
                         let id = Utils.getDeviceUUID()
-                        UserDefaults.standard.set(id, forKey: key)
                         // 호출 보내기
                         let postData = PostData(user_id: id)
                         APIManager().sendPostRequest(data: postData, url: "http://digooo.shop:5000/user-api") { result in
@@ -33,7 +39,7 @@ struct AhreumApp: App {
                                 // Handle error here.
                             }
                         }
-//                    }
+                    }
                 }
         }
     }
@@ -147,5 +153,14 @@ class APIManager {
                 completion(.failure(NSError(domain: "No data received", code: -2, userInfo: nil)))
             }
         }.resume()
+    }
+}
+
+struct LaunchScreenView: UIViewControllerRepresentable {
+    func makeUIViewController(context: Context) -> some UIViewController {
+        let controller = UIStoryboard(name: "Launch Screen", bundle: nil).instantiateInitialViewController()!
+        return controller
+    }
+    func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {
     }
 }

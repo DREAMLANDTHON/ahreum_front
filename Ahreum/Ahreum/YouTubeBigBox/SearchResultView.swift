@@ -84,7 +84,7 @@ struct SearchResultView: View {
     @State var isShowDetailBoxView = false
     @State var todayBallCount = UserDefaultManager.shared.getTodayBallCount() ?? 5
     @State var usingBallCount = UserDefaultManager.shared.getUsingBallCount() ?? 2
-    @State var selectedMovieID: String = ""
+    @State var selectedMovie: YouTubeBigBoxModel = YouTubeBigBoxModel()
     @Binding var isSearched: Bool
     @Binding var searchText: String
     
@@ -131,13 +131,14 @@ struct SearchResultView: View {
                             YouTubeBigBoxView(model: model)
                                 .onTapGesture {
                                     isShowDetailBoxView = true
-                                    selectedMovieID = model.movieID
+                                    selectedMovie = model
+                                    print("selectedMovie", model)
                                 }
                         }
                     }
                 }
             }.fullScreenCover(isPresented: $isShowDetailBoxView) {
-                YouTubeDetailBoxView(isSearched: $isSearched, video_id: selectedMovieID)
+                YouTubeDetailBoxView(isSearched: $isSearched, model: $selectedMovie)
                     .onDisappear {
                         todayBallCount = UserDefaultManager.shared.getTodayBallCount() ?? 5
                         usingBallCount = UserDefaultManager.shared.getUsingBallCount() ?? 2

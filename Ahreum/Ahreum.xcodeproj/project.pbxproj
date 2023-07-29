@@ -16,6 +16,7 @@
 		FB2BEB522A73864300930A27 /* RequestAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2BEB512A73864200930A27 /* RequestAPI.swift */; };
 		FB2BEB542A73866600930A27 /* YouTubeBigBoxModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2BEB532A73866600930A27 /* YouTubeBigBoxModel.swift */; };
 		FB2BEB562A73868000930A27 /* YouTubeBigBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2BEB552A73868000930A27 /* YouTubeBigBoxView.swift */; };
+		FB474BD82A74A4AE0032745D /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB474BD72A74A4AE0032745D /* Launch Screen.storyboard */; };
 		FBD2F44E2A73B80000BA9A77 /* RequestAPIYouTubeBigBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD2F44D2A73B80000BA9A77 /* RequestAPIYouTubeBigBox.swift */; };
 		FBD2F4522A73B82200BA9A77 /* YouTubeDetailBoxModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD2F4512A73B82200BA9A77 /* YouTubeDetailBoxModel.swift */; };
 		FBD2F4542A73B83000BA9A77 /* RequestAPIYouTubeDetailBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD2F4532A73B83000BA9A77 /* RequestAPIYouTubeDetailBox.swift */; };
@@ -39,6 +40,7 @@
 		FB2BEB512A73864200930A27 /* RequestAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestAPI.swift; sourceTree = "<group>"; };
 		FB2BEB532A73866600930A27 /* YouTubeBigBoxModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouTubeBigBoxModel.swift; sourceTree = "<group>"; };
 		FB2BEB552A73868000930A27 /* YouTubeBigBoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouTubeBigBoxView.swift; sourceTree = "<group>"; };
+		FB474BD72A74A4AE0032745D /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		FBD2F44D2A73B80000BA9A77 /* RequestAPIYouTubeBigBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestAPIYouTubeBigBox.swift; sourceTree = "<group>"; };
 		FBD2F4512A73B82200BA9A77 /* YouTubeDetailBoxModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouTubeDetailBoxModel.swift; sourceTree = "<group>"; };
 		FBD2F4532A73B83000BA9A77 /* RequestAPIYouTubeDetailBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestAPIYouTubeDetailBox.swift; sourceTree = "<group>"; };
@@ -86,6 +88,7 @@
 				FBD2F45E2A73FBC300BA9A77 /* Info.plist */,
 				FBD2F45B2A73C32F00BA9A77 /* Ahreum.entitlements */,
 				FB2BEB3D2A7379CE00930A27 /* AhreumApp.swift */,
+				FB474BD72A74A4AE0032745D /* Launch Screen.storyboard */,
 				FB2BEB3F2A7379CE00930A27 /* ContentView.swift */,
 				FBD2F4632A7406A200BA9A77 /* UserDefaultManager.swift */,
 				FB2BEB512A73864200930A27 /* RequestAPI.swift */,
@@ -198,6 +201,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FB474BD82A74A4AE0032745D /* Launch Screen.storyboard in Resources */,
 				FB2BEB452A7379CF00930A27 /* Preview Assets.xcassets in Resources */,
 				FBE7668C2A74448B00BD09D1 /* Pretendard-Bold.otf in Resources */,
 				FBE7668F2A7446B400BD09D1 /* Pretendard-Regular.otf in Resources */,
@@ -365,6 +369,7 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
@@ -399,6 +404,7 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;

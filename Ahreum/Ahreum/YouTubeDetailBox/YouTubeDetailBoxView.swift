@@ -24,21 +24,12 @@ class RequestAPIYouTubeDetailBox: ObservableObject {
                         
                         do{
                             let apiResponse = try JSONDecoder().decode(YouTubeDetailBoxResult.self, from: data)
-                            DispatchQueue.main.async {
-                                self.youTubeDetailBoxModel = apiResponse.YouTubeDetailBoxModel
-                            }
                         }catch(let err){
-                            DispatchQueue.main.async {
-                                self.youTubeDetailBoxModel = YouTubeDetailBoxModel(title: "에러발생")
-                            }
                             print(err.localizedDescription)
                         }
                     }
                     // Handle successful response here.
                 case .failure(let error):
-                    DispatchQueue.main.async {
-                        self.youTubeDetailBoxModel = YouTubeDetailBoxModel(title: "에러발생")
-                    }
                     print("Error: \(error.localizedDescription)")
                     // Handle error here.
                 }
@@ -82,7 +73,7 @@ struct YouTubeDetailBoxView: View {
     @State var isShowAlert = false
     @State var isdetaileViewClipped = true
     @Binding var isSearched: Bool
-    let video_id: String
+    @Binding var model: YouTubeBigBoxModel
     @StateObject private var network = RequestAPIYouTubeDetailBox.shared
     
     var body: some View {
@@ -96,7 +87,8 @@ struct YouTubeDetailBoxView: View {
                         .onAppear {
                             UserDefaultManager.shared.addUsingBallCount()
                             nowBallCount = UserDefaultManager.shared.getUsingBallCount() ?? 0
-                            network.fetchData(video_id: video_id)
+                            network.fetchData(video_id: model.movieID)
+                            print("modelmodelmodel", model)
                         }
                         .padding(.trailing, 20)
                     Image("logo")
@@ -110,12 +102,11 @@ struct YouTubeDetailBoxView: View {
                         .frame(width: 30, height: 30)
                         .onTapGesture {
                             print("tab")
-                            network.youTubeDetailBoxModel = YouTubeDetailBoxModel()
-                            network.fetchData(video_id: video_id)
+//                            model.youTubeDetailBoxModel = YouTubeDetailBoxModel()
+//                            m.fetchData(video_id: video_id)
                         }
                 }
                 .paddingHorizontal()
-                let model = network.youTubeDetailBoxModel
                 if model.title == "가데이터입니다. [숙면을 위한 수면 유도 음악]" {
                     ProgressView()
                 } else {
@@ -244,6 +235,6 @@ struct YouTubeDetailBoxView: View {
 
 struct YouTubeDetailBoxView_Previews: PreviewProvider {
     static var previews: some View {
-        YouTubeDetailBoxView(isSearched: .constant(false), video_id: "asdads")
+        YouTubeDetailBoxView(isSearched: .constant(false), model: .constant(YouTubeBigBoxModel()))
     }
 }
