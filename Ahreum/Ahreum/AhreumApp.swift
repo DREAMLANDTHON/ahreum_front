@@ -50,7 +50,7 @@ struct PostData1: Codable {
 
 struct PostData2: Codable {
     let user_id: String
-    let movie_id: String
+    let video_id: String
 }
 
 class APIManager {

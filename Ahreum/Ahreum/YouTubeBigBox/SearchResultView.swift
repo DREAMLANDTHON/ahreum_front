@@ -28,11 +28,17 @@ class RequestAPIYouTubeBigBox: ObservableObject {
                             self.YouTubeBigBoxList = apiResponse.YouTubeBigBoxs
                         }
                     }catch(let err){
+                        DispatchQueue.main.async {
+                            self.YouTubeBigBoxList = [YouTubeBigBoxModel(), YouTubeBigBoxModel(), YouTubeBigBoxModel(), YouTubeBigBoxModel()]
+                        }
                         print(err.localizedDescription)
                     }
                 }
                 // Handle successful response here.
             case .failure(let error):
+                DispatchQueue.main.async {
+                    self.YouTubeBigBoxList = [YouTubeBigBoxModel(), YouTubeBigBoxModel(), YouTubeBigBoxModel(), YouTubeBigBoxModel()]
+                }
                 print("Error: \(error.localizedDescription)")
                 // Handle error here.
             }
@@ -83,10 +89,18 @@ struct SearchResultView: View {
     @Binding var searchText: String
     
     var body: some View {
-        NavigationView {
             VStack(spacing: 0) {
                 HStack(spacing: 0) {
                     let remainBallCount = todayBallCount - usingBallCount
+                    
+                    Rectangle()
+                        .foregroundColor(Color.white)
+                        .frame(width: 30, height: 30)
+                        .onTapGesture {
+                            print("tab")
+                            network.YouTubeBigBoxList = []
+                            network.fetchData(keyword: searchText)
+                        }
                     
                     Spacer()
                         .onAppear {
@@ -123,14 +137,13 @@ struct SearchResultView: View {
                     }
                 }
             }.fullScreenCover(isPresented: $isShowDetailBoxView) {
-                YouTubeDetailBoxView(isSearched: $isSearched, movieID: selectedMovieID)
+                YouTubeDetailBoxView(isSearched: $isSearched, video_id: selectedMovieID)
                     .onDisappear {
                         todayBallCount = UserDefaultManager.shared.getTodayBallCount() ?? 5
                         usingBallCount = UserDefaultManager.shared.getUsingBallCount() ?? 2
                     }
             }
         }
-    }
 }
 
 struct SearchResultView_Previews: PreviewProvider {

@@ -50,12 +50,17 @@ struct ContentView: View {
                     .scaledToFill()
                     .frame(width: 77, height: 27)
                     .padding(.vertical, 12)
+                    .onTapGesture {
+                        isShowSearchView = true
+                        isTouchedSearchbar = false
+                        isSearched = false
+                    }
                 NavigationView()
                 Spacer()
             }
             .paddingHorizontal()
             dividerThick1
-                .padding(.bottom, 45)
+                .padding(.bottom, isSearched ? 15 : 45)
             if isSearched {
                 SearchResultView(isSearched: $isSearched, searchText: $searchText)
             } else {
@@ -169,12 +174,13 @@ extension ContentView {
                     .padding(.horizontal, 20)
                     .padding(.vertical, 40)
                 VStack(spacing: 0) {
-                    Text(isFirstComeToday ? "몇 회까지 제한을 둘까요?" : "김써머님")
+                    Text(isFirstComeToday ? "몇 회까지 제한을 둘까요?" : "김써머님\n시간은 금! 아시죠?")
                         .titleBold17()
                         .foregroundColor(Color.Orange)
                         .alignment(.leading)
                         .padding(.bottom, 20)
                         .padding(.leading, 5)
+                        .animation(Animation.easeInOut(duration: 0.5), value: isFirstComeToday)
                     if isFirstComeToday {
                         HStack(spacing: 0) {
                             ForEach(1..<6, id: \.self) { num in
@@ -207,6 +213,7 @@ extension ContentView {
                             }
                             Spacer()
                         }
+                        .animation(Animation.easeInOut(duration: 0.2), value: isFirstComeToday)
                     }
                 }
             }
@@ -249,6 +256,7 @@ extension ContentView {
                                 isTouchedSearchbar = true
 //                            }
                     }
+                            .animation(Animation.easeInOut(duration: 0.2), value: isTouchedSearchbar)
                 }
             }
         }

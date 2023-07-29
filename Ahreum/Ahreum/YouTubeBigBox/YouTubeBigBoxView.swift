@@ -17,25 +17,17 @@ struct YouTubeBigBoxView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            ZStack(alignment: .bottomTrailing) {
-                if let url = URL(string: model.image) {
-                    ImageView(url: url)
-                        .frame(maxWidth: .infinity, maxHeight: 180)
-                        .cornerRadius(10)
-                } else {
-                    Image("tempImage").resizable()
-                        .frame(maxWidth: .infinity, maxHeight: 180)
-                        .cornerRadius(10)
-                }
-                Text(model.lengthTime)
-                    .padding(.horizontal,5)
-                    .padding(.vertical,2)
-                    .background(.black)
-                    .foregroundColor(.white)
-                    .cornerRadius(5)
-                    .padding([.bottom, .trailing], 5)
+            if let url = URL(string: model.image) {
+                ImageView(url: url)
+                    .frame(maxWidth: .infinity, maxHeight: 180)
+                    .cornerRadius(10)
+                    .padding(.trailing, 5)
+            } else {
+                Image("tempImage").resizable()
+                    .frame(maxWidth: .infinity, maxHeight: 180)
+                    .cornerRadius(10)
+                    .padding(.trailing, 5)
             }
-            .padding(.trailing, 5)
             
             VStack(spacing: 0) {
                 Text(model.title)
